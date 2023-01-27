@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Platforms\ZoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['auth:sanctum'], function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    // Route::post('meetings', [ZoomController::class, 'store']);
+
+    Route::get('appointments', [AppointmentController::class,'index']);
+    Route::post('appointments', [AppointmentController::class,'store']);
 });
+
+
