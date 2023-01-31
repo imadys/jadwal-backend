@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Platforms\ZoomController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +21,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['auth:sanctum'], function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        if ($request->user()) {
+            return $request->user();
+        } else {
+            return
+                response()->json([
+                    'errors' => "You are not logged in!",
+                ], 422);;
+        }
     });
     // Route::post('meetings', [ZoomController::class, 'store']);
 
-    Route::get('appointments', [AppointmentController::class,'index']);
-    Route::post('appointments', [AppointmentController::class,'store']);
+    // Services
+    Route::get('services', [ServicesController::class, 'index']);
+    Route::post('services', [ServicesController::class, 'store']);
+    Route::get('services/{service}', [ServicesController::class, 'edit']);
+    Route::put('services/{service}', [ServicesController::class, 'update']);
+    // Appointments
+    Route::get('appointments', [AppointmentController::class, 'index']);
+    Route::post('appointments', [AppointmentController::class, 'store']);
+
 });
-
-
+// Profile
+Route::get('/profile/{username}', [ProfileController::class, 'show']);

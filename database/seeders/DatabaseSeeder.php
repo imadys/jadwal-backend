@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Appointment;
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,40 +20,37 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+            'username' => 'imadys',
+            'name' => 'imad YURTSEVER',
+            'email' => 'imadys@outlook.com',
             'password' => bcrypt('123'), 'email_verified_at' => now(),
 
         ]);
 
 
-        \App\Models\Appointment::create([
-            'topic' => 'Topic 1',
-            'user_id' => 1,
-            'location' => Appointment::LOCATION_ZOOM,
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus culpa pariatur sapiente illo expedita? Mollitia laboriosam, rem quia eum voluptatibus et ullam? Autem, molestias quia. Aspernatur ducimus quae facere voluptate.',
-            'custom_link' => 'topic-1',
-            'meeting_url' => ' ',
-            'start_date' => now(),
-            'duration' => 1000,
-            'color' => 1,
-            'platform' => Appointment::PLATFORM_ZOOM,
-            'status' => Appointment::STATUS_ACTIVE
-
+        \App\Models\Service::create([
+            "name" => "Technical Consultation",
+            "user_id" => 1,
+            "description" => "<h5>Techincal consultation in any field.</h5>",
+            "location" => Service::LOCATION_ZOOM,
+            "date_range" => 60,
+            "duration" => 45,
+            "custom_link" => "imadys",
+            "color" => "c-info",
+            "status" => Service::STATUS_ACTIVE
         ]);
-        \App\Models\Appointment::create([
-            'topic' => 'Topic 2',
-            'user_id' => 1,
-            'location' => Appointment::LOCATION_ZOOM,
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus culpa pariatur sapiente illo expedita? Mollitia laboriosam, rem quia eum voluptatibus et ullam? Autem, molestias quia. Aspernatur ducimus quae facere voluptate.',
-            'custom_link' => 'topic-2',
-            'meeting_url' => ' ',
-            'start_date' => now(),
-            'duration' => 1000,
-            'color' => 1,
-            'platform' => Appointment::PLATFORM_ZOOM,
-            'status' => Appointment::STATUS_ACTIVE
 
+        \App\Models\Service::create([
+            "name" => "Bug fix your code",
+            "user_id" => 1,
+            "description" => "<h5>Find and fix any bug in your code.</h5>",
+            "location" => Service::LOCATION_ZOOM,
+            "date_range" => 60,
+            "duration" => 15,
+            "custom_link" => "imadys",
+            "color" => "c-success",
+            "status" => Service::STATUS_ACTIVE
         ]);
+
     }
 }

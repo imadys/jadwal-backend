@@ -15,19 +15,21 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
             $table->string('topic');
             $table->integer('location');
             $table->text('description');
-            $table->text('custom_link');
             $table->text('meeting_url');
             $table->date('start_date');
             $table->integer('duration');
-            $table->tinyInteger('color');
+            $table->unsignedBigInteger('service_id');
             $table->tinyInteger('platform');
             $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
+
+
+            $table->foreign('service_id')->references('id')->on('services');
+
         });
     }
 

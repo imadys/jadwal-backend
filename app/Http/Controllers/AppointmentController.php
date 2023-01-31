@@ -9,7 +9,9 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::query()->where('status', Appointment::STATUS_ACTIVE)->where('user_id', auth()->id())->get();
+        $appointments = Appointment::query()->where('status', Appointment::STATUS_ACTIVE)->with('service')->whereHas('service',function($q){
+           return $q->where('user_id',auth()->id());
+        })->get();
 
         return $appointments;
     }
