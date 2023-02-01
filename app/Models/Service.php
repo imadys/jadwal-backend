@@ -18,6 +18,7 @@ class Service extends Model
     const PLATFORM_ZOOM = 1;
     const PLATFORM_GOOGLE = 2;
 
+
     const LOCATION_ZOOM = 1;
     const LOCATION_PHONE_CALL = 2;
 

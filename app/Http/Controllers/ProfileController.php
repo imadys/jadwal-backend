@@ -14,8 +14,18 @@ class ProfileController extends Controller
         $user = User::where('username', $user)->with('services', function ($q) {
             $q->where('status', Service::STATUS_ACTIVE);
         })->firstOrFail();
-        $availabilities = Availability::where('user_id',$user->id)->pluck('appointment_date');
+        $availabilities = Availability::where('user_id', $user->id)->pluck('appointment_date');
         $data = ['user' => $user, 'availabilities' => $availabilities];
+
+
+        return $data;
+    }
+    public function service($user, $custom_link)
+    {
+        $user = User::where('username', $user)->firstOrFail();
+        $service = Service::where('custom_link', $custom_link)->firstOrFail();
+        $availabilities = Availability::where('user_id', $user->id)->pluck('appointment_date');
+        $data = ['user' => $user, 'availabilities' => $availabilities, 'service' => $service];
 
 
         return $data;

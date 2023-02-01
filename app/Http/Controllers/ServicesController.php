@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class ServicesController extends Controller
 {
@@ -37,18 +39,19 @@ class ServicesController extends Controller
     }
     public function edit($id)
     {
-        $service = Service::query()->where('user_id',auth()->id())->findOrFail($id);
+        $service = Service::query()->where('user_id', auth()->id())->findOrFail($id);
         return $service;
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate(["name" => "required",
+        $validated = $request->validate([
+            "name" => "required",
             "location" => "required",
             "description" => "required",
             "date_range" => "required",
             "duration" => "required",
-            "custom_link" => "required",
+            "custom_link" => ValidationRule::unique('services', 'custom_link')->ignore($id),
             "color" => "required"
         ]);
         $request->merge(['user_id' => auth()->id()]);

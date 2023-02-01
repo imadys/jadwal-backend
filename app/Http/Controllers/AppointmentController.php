@@ -33,11 +33,14 @@ class AppointmentController extends Controller
                 'participant_video' => true,
             ];
             $meeting = new ZoomMeetingService();
+
+            $response = $meeting->create($meetingData);
+            $request->merge(['meeting_url' => $response['data']['join_url'] ?? 'Meeting in person']);
+        } else{
+
+            $request->merge(['meeting_url' => 'Meeting in person']);
         }
 
-        $response = $meeting->create($meetingData);
-
-        $request->merge(['meeting_url' => $response['data']['join_url'] ?? 'Meeting in person']);
         $request->merge(['status' => Appointment::STATUS_ACTIVE]);
 
         $request->merge(['appointment_date' => \Carbon\Carbon::parse($request->appointment_date)->addDay(1)->format('Y-m-d')]);

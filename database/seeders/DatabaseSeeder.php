@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             "location" => Service::LOCATION_ZOOM,
             "date_range" => 60,
             "duration" => 45,
-            "custom_link" => "imadys",
+            "custom_link" => "tech-consultation",
             "color" => "c-info",
             "status" => Service::STATUS_ACTIVE
         ]);
@@ -47,10 +47,9 @@ class DatabaseSeeder extends Seeder
             "location" => Service::LOCATION_ZOOM,
             "date_range" => 60,
             "duration" => 15,
-            "custom_link" => "imadys",
+            "custom_link" => "bug-fix",
             "color" => "c-success",
             "status" => Service::STATUS_ACTIVE
         ]);
-
     }
 }

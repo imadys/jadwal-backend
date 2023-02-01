@@ -2,11 +2,15 @@
 ```js
 git clone https://github.com/imadys/jadwal-backend.git
 cd jadwal-backend
+```
+
+copy .env.example and rename it to .env
+
+```js
 composer install
 php artisan key:generate
 php artisan migrate --seed
 ```
-copy .env.example and rename it to .env
 ```js
 FRONTEND_URL="YOUR FRONTEND LOCALHOST URL"
 ```

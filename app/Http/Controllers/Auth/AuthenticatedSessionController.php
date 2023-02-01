@@ -22,6 +22,13 @@ class AuthenticatedSessionController extends Controller
         return response()->noContent();
     }
 
+    public function update(LoginRequest $request): Response
+    {
+        Auth::user()->update($request->all());
+
+        return response()->noContent();
+    }
+
     /**
      * Destroy an authenticated session.
      */
