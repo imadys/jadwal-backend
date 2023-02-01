@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
 use GuzzleHttp\Client;
 use Log;
 
-/**
- * trait ZoomMeetingTrait
- */
-trait ZoomMeetingTrait
+class ZoomMeetingService
 {
+    const MEETING_TYPE_INSTANT = 1;
+
     public $client;
     public $jwt;
     public $headers;
@@ -24,6 +23,7 @@ trait ZoomMeetingTrait
             'Accept' => 'application/json',
         ];
     }
+
     public function generateZoomToken()
     {
         $key = env('ZOOM_API_KEY', '');
@@ -63,7 +63,7 @@ trait ZoomMeetingTrait
             'headers' => $this->headers,
             'body' => json_encode([
                 'topic' => $data['topic'],
-                'type' => self::MEETING_TYPE_INSTANT,
+                'type' => $this::MEETING_TYPE_INSTANT,
                 'start_time' => $this->toZoomTimeFormat($data['start_time']),
                 'duration' => $data['duration'],
                 'agenda' => (!empty($data['agenda'])) ? $data['agenda'] : null,
@@ -81,74 +81,6 @@ trait ZoomMeetingTrait
         return [
             'success' => $response->getStatusCode() === 201,
             'data' => json_decode($response->getBody(), true),
-        ];
-    }
-
-    public function update($id, $data)
-    {
-        $path = 'meetings/' . $id;
-        $url = $this->retrieveZoomUrl();
-
-        $body = [
-            'headers' => $this->headers,
-            'body' => json_encode([
-                'topic' => $data['topic'],
-                'type' => self::MEETING_TYPE_SCHEDULE,
-                'start_time' => $this->toZoomTimeFormat($data['start_time']),
-                'duration' => $data['duration'],
-                'agenda' => (!empty($data['agenda'])) ? $data['agenda'] : null,
-                'timezone' => 'Asia/Kolkata',
-                'settings' => [
-                    'host_video' => ($data['host_video'] == "1") ? true : false,
-                    'participant_video' => ($data['participant_video'] == "1") ? true : false,
-                    'waiting_room' => true,
-                ],
-            ]),
-        ];
-        $response = $this->client->patch($url . $path, $body);
-
-        return [
-            'success' => $response->getStatusCode() === 204,
-            'data' => json_decode($response->getBody(), true),
-        ];
-    }
-
-    public function get($id)
-    {
-        $path = 'meetings/' . $id;
-        $url = $this->retrieveZoomUrl();
-        $this->jwt = $this->generateZoomToken();
-        $body = [
-            'headers' => $this->headers,
-            'body' => json_encode([]),
-        ];
-
-        $response = $this->client->get($url . $path, $body);
-
-        return [
-            'success' => $response->getStatusCode() === 204,
-            'data' => json_decode($response->getBody(), true),
-        ];
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return bool[]
-     */
-    public function delete($id)
-    {
-        $path = 'meetings/' . $id;
-        $url = $this->retrieveZoomUrl();
-        $body = [
-            'headers' => $this->headers,
-            'body' => json_encode([]),
-        ];
-
-        $response = $this->client->delete($url . $path, $body);
-
-        return [
-            'success' => $response->getStatusCode() === 204,
         ];
     }
 }

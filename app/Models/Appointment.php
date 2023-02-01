@@ -22,15 +22,10 @@ class Appointment extends Model
     const LOCATION_PHONE_CALL = 2;
 
     protected $fillable = [
-        "topic",
-        "user_id",
-        "location",
-        "description",
+        "name",
+        "email",
         "meeting_url",
-        "start_date",
-        "duration",
-        "color",
-        "platform",
+        "appointment_date",
         "service_id",
         "status"
     ];
