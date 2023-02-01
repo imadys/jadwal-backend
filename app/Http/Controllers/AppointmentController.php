@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AppointmentCreation;
 use App\Models\Appointment;
 use App\Models\Availability;
 use App\Models\Service;
 use App\Services\ZoomMeetingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
 {
@@ -47,6 +49,7 @@ class AppointmentController extends Controller
             'service_id' => $service->id,
         ]);
 
+        Mail::to('imadys@outlook.com')->send(new AppointmentCreation($appointment));
         return $appointment;
     }
 }
