@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'username' => 'imadys',
             'name' => 'imad YURTSEVER',
-            'email' => 'imadys@outlook.com',
+            'email' => 'imadys@test.test',
             'password' => bcrypt('123'), 'email_verified_at' => now(),
 
         ]);
