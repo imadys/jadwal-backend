@@ -25,3 +25,8 @@ MAIL_PASSWORD="PASSWORD"
 MAIL_ENCRYPTION=tls
 ```
 Replace your Zoom keys and Mailtrap
+
+```js
+php artisan serve
+```
+Then run this command to start the server
