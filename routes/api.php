@@ -39,6 +39,9 @@ Route::group(['auth:sanctum'], function () {
     Route::put('services/{service}', [ServicesController::class, 'update']);
     // Appointments
     Route::get('appointments', [AppointmentController::class, 'index']);
+
+
+    Route::put('settings/{user}',[UserController::class, 'update']);
 });
 // Profile
 Route::post('/appointments', [AppointmentController::class, 'store']);
